@@ -153,8 +153,9 @@ func (c *calc) loadUI(app fyne.App) {
 }
 
 func newCalculator() *calc {
-	return &calc{
-		functions: make(map[string]func()),
-		buttons:   make(map[string]*widget.Button),
-	}
+	c := &calc{}
+	c.functions = make(map[string]func())
+	c.buttons = make(map[string]*widget.Button)
+
+	return c
 }
