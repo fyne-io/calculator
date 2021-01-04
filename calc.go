@@ -148,6 +148,7 @@ func (c *calc) loadUI(app fyne.App) {
 
 	c.window.Canvas().SetOnTypedRune(c.onTypedRune)
 	c.window.Canvas().SetOnTypedKey(c.onTypedKey)
+	c.window.Resize(fyne.NewSize(200, 300))
 	c.window.Show()
 }
 
