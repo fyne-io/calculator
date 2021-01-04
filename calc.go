@@ -3,7 +3,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 
@@ -67,7 +66,7 @@ func (c *calc) addButton(text string, action func()) *widget.Button {
 }
 
 func (c *calc) digitButton(number int) *widget.Button {
-	str := fmt.Sprintf("%d", number)
+	str := strconv.Itoa(number)
 	action := func() {
 		c.digit(number)
 	}
@@ -85,7 +84,7 @@ func (c *calc) charButton(char rune) *widget.Button {
 	return c.addButton(string(char), action)
 }
 
-func (c *calc) typedRune(r rune) {
+func (c *calc) onTypedRune(r rune) {
 	if r == '=' {
 		c.evaluate()
 		return
@@ -100,21 +99,20 @@ func (c *calc) typedRune(r rune) {
 	}
 }
 
-func (c *calc) typedKey(ev *fyne.KeyEvent) {
+func (c *calc) onTypedKey(ev *fyne.KeyEvent) {
 	if ev.Name == fyne.KeyReturn || ev.Name == fyne.KeyEnter {
 		c.evaluate()
-		return
 	}
 }
 
 func (c *calc) loadUI(app fyne.App) {
-	c.output = widget.NewLabel("")
-	c.output.Alignment = fyne.TextAlignTrailing
+	c.output = &widget.Label{Alignment: fyne.TextAlignTrailing}
 	c.output.TextStyle.Monospace = true
+
 	equals := c.addButton("=", func() {
 		c.evaluate()
 	})
-	equals.Style = widget.PrimaryButton
+	equals.Importance = widget.HighImportance
 
 	c.window = app.NewWindow("Calc")
 	c.window.SetContent(fyne.NewContainerWithLayout(layout.NewGridLayout(1),
@@ -148,8 +146,8 @@ func (c *calc) loadUI(app fyne.App) {
 			equals)),
 	)
 
-	c.window.Canvas().SetOnTypedRune(c.typedRune)
-	c.window.Canvas().SetOnTypedKey(c.typedKey)
+	c.window.Canvas().SetOnTypedRune(c.onTypedRune)
+	c.window.Canvas().SetOnTypedKey(c.onTypedKey)
 	c.window.Show()
 }
 
