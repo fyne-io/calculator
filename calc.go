@@ -118,27 +118,27 @@ func (c *calc) loadUI(app fyne.App) {
 	c.window.SetContent(fyne.NewContainerWithLayout(layout.NewGridLayout(1),
 		c.output,
 		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
-			c.charButton('+'),
-			c.charButton('-'),
-			c.charButton('*'),
+			c.addButton("C", func() {
+				c.clear()
+			}),
+			c.charButton('('),
+			c.charButton(')'),
 			c.charButton('/')),
 		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
 			c.digitButton(7),
 			c.digitButton(8),
 			c.digitButton(9),
-			c.addButton("C", func() {
-				c.clear()
-			})),
+			c.charButton('*')),
 		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
 			c.digitButton(4),
 			c.digitButton(5),
 			c.digitButton(6),
-			c.charButton('(')),
+			c.charButton('-')),
 		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
 			c.digitButton(1),
 			c.digitButton(2),
 			c.digitButton(3),
-			c.charButton(')')),
+			c.charButton('+')),
 		fyne.NewContainerWithLayout(layout.NewGridLayout(2),
 			fyne.NewContainerWithLayout(layout.NewGridLayout(2),
 				c.digitButton(0),
@@ -153,8 +153,9 @@ func (c *calc) loadUI(app fyne.App) {
 }
 
 func newCalculator() *calc {
-	return &calc{
-		functions: make(map[string]func()),
-		buttons:   make(map[string]*widget.Button),
-	}
+	c := &calc{}
+	c.functions = make(map[string]func())
+	c.buttons = make(map[string]*widget.Button)
+
+	return c
 }
