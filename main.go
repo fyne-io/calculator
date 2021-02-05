@@ -1,7 +1,7 @@
 // Package main launches the calculator app
 package main
 
-import "fyne.io/fyne/app"
+import "fyne.io/fyne/v2/app"
 
 func main() {
 	app := app.New()
