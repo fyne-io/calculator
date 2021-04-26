@@ -1,3 +1,4 @@
+//go:generate fyne bundle -o data.go Icon.png
 // Package main launches the calculator app
 package main
 
