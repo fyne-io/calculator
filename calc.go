@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 
 	"github.com/Knetic/govaluate"
@@ -115,32 +115,32 @@ func (c *calc) loadUI(app fyne.App) {
 	equals.Importance = widget.HighImportance
 
 	c.window = app.NewWindow("Calc")
-	c.window.SetContent(fyne.NewContainerWithLayout(layout.NewGridLayout(1),
+	c.window.SetContent(container.NewGridWithColumns(1,
 		c.output,
-		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
+		container.NewGridWithColumns(4,
 			c.addButton("C", func() {
 				c.clear()
 			}),
 			c.charButton('('),
 			c.charButton(')'),
 			c.charButton('/')),
-		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
+		container.NewGridWithColumns(4,
 			c.digitButton(7),
 			c.digitButton(8),
 			c.digitButton(9),
 			c.charButton('*')),
-		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
+		container.NewGridWithColumns(4,
 			c.digitButton(4),
 			c.digitButton(5),
 			c.digitButton(6),
 			c.charButton('-')),
-		fyne.NewContainerWithLayout(layout.NewGridLayout(4),
+		container.NewGridWithColumns(4,
 			c.digitButton(1),
 			c.digitButton(2),
 			c.digitButton(3),
 			c.charButton('+')),
-		fyne.NewContainerWithLayout(layout.NewGridLayout(2),
-			fyne.NewContainerWithLayout(layout.NewGridLayout(2),
+		container.NewGridWithColumns(2,
+			container.NewGridWithColumns(2,
 				c.digitButton(0),
 				c.charButton('.')),
 			equals)),
