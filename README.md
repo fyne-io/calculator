@@ -13,8 +13,8 @@ A simple calculator application built using the Fyne toolkit.
 Install Fyne:
 ```go get fyne.io/fyne/v2/cmd/fyne```
 
-Install resources for this application
-cd into /calculator
+Install resources for this application:
+go to folder /calculator
 and execute: 
 ```fyne install```
 
