@@ -4,6 +4,8 @@ package main
 
 import "fyne.io/fyne/v2/app"
 
+// see the readme for installation instructions
+
 func main() {
 	app := app.New()
 	app.SetIcon(resourceIconPng)
