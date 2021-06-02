@@ -83,7 +83,6 @@ func TestDot(t *testing.T) {
 	test.Tap(calc.buttons["7"])
 	test.Tap(calc.buttons["."])
 	test.Tap(calc.buttons["8"])
-
 	test.Tap(calc.buttons["="])
 
 	assert.Equal(t, "10", calc.output.Text)
@@ -98,6 +97,21 @@ func TestClear(t *testing.T) {
 	test.Tap(calc.buttons["C"])
 
 	assert.Equal(t, "", calc.output.Text)
+}
+
+func TestContinueAfterResult(t *testing.T) {
+	calc := newCalculator()
+	calc.loadUI(test.NewApp())
+
+	test.Tap(calc.buttons["6"])
+	test.Tap(calc.buttons["+"])
+	test.Tap(calc.buttons["4"])
+	test.Tap(calc.buttons["="])
+	test.Tap(calc.buttons["-"])
+	test.Tap(calc.buttons["2"])
+	test.Tap(calc.buttons["="])
+
+	assert.Equal(t, "8", calc.output.Text)
 }
 
 func TestKeyboard(t *testing.T) {
