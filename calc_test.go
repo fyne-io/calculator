@@ -123,4 +123,15 @@ func TestKeyboard(t *testing.T) {
 
 	test.TypeOnCanvas(calc.window.Canvas(), "=")
 	assert.Equal(t, "2", calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "c")
+	assert.Equal(t, "", calc.output.Text)
+}
+
+func TestError(t *testing.T) {
+	calc := newCalculator()
+	calc.loadUI(test.NewApp())
+
+	test.TypeOnCanvas(calc.window.Canvas(), "1//1=")
+	assert.Equal(t, "error", calc.output.Text)
 }
