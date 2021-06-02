@@ -54,8 +54,6 @@ func (c *calc) evaluate() {
 		log.Println("Error in calculation", err)
 		c.display("error")
 	}
-
-	c.equation = ""
 }
 
 func (c *calc) addButton(text string, action func()) *widget.Button {
