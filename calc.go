@@ -32,9 +32,7 @@ func (c *calc) character(char rune) {
 }
 
 func (c *calc) digit(d int) {
-	r := rune(d)
-	r += '0'
-	c.character(r)
+	c.character(rune(d) + '0')
 }
 
 func (c *calc) clear() {
@@ -107,9 +105,7 @@ func (c *calc) loadUI(app fyne.App) {
 	c.output = &widget.Label{Alignment: fyne.TextAlignTrailing}
 	c.output.TextStyle.Monospace = true
 
-	equals := c.addButton("=", func() {
-		c.evaluate()
-	})
+	equals := c.addButton("=", c.evaluate)
 	equals.Importance = widget.HighImportance
 
 	c.window = app.NewWindow("Calc")
@@ -151,9 +147,8 @@ func (c *calc) loadUI(app fyne.App) {
 }
 
 func newCalculator() *calc {
-	c := &calc{}
-	c.functions = make(map[string]func())
-	c.buttons = make(map[string]*widget.Button)
-
-	return c
+	return &calc{
+		functions: make(map[string]func()),
+		buttons:   make(map[string]*widget.Button),
+	}
 }
