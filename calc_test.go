@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/test"
 
 	"github.com/stretchr/testify/assert"
@@ -123,4 +124,33 @@ func TestKeyboard(t *testing.T) {
 
 	test.TypeOnCanvas(calc.window.Canvas(), "=")
 	assert.Equal(t, "2", calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "c")
+	assert.Equal(t, "", calc.output.Text)
+}
+
+func TestKeyboard_Buttons(t *testing.T) {
+	calc := newCalculator()
+	calc.loadUI(test.NewApp())
+
+	test.TypeOnCanvas(calc.window.Canvas(), "1+1")
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyReturn})
+	assert.Equal(t, "2", calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "c")
+
+	test.TypeOnCanvas(calc.window.Canvas(), "1+1")
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyEnter})
+	assert.Equal(t, "2", calc.output.Text)
+
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyBackspace})
+	assert.Equal(t, "", calc.output.Text)
+}
+
+func TestError(t *testing.T) {
+	calc := newCalculator()
+	calc.loadUI(test.NewApp())
+
+	test.TypeOnCanvas(calc.window.Canvas(), "1//1=")
+	assert.Equal(t, "error", calc.output.Text)
 }
