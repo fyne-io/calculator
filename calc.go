@@ -98,6 +98,8 @@ func (c *calc) onTypedRune(r rune) {
 func (c *calc) onTypedKey(ev *fyne.KeyEvent) {
 	if ev.Name == fyne.KeyReturn || ev.Name == fyne.KeyEnter {
 		c.evaluate()
+	} else if ev.Name == fyne.KeyBackspace && len(c.equation) > 0 {
+		c.display(c.equation[:len(c.equation)-1])
 	}
 }
 
