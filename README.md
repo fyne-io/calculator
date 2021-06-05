@@ -9,3 +9,15 @@
 A simple calculator application built using the Fyne toolkit.
 
 ![](img/calc-dark.png) &nbsp; ![](img/calc-light.png)
+
+# Installation instructions
+Install Fyne:
+```go get fyne.io/fyne/v2/cmd/fyne```
+
+Install resources for this application:
+go to folder /calculator
+and execute: 
+```fyne install```
+
+or in case go/bin is not added to your path:
+and `/Users/xyz/go/bin/fyne install`
