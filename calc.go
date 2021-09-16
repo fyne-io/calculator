@@ -14,8 +14,7 @@ import (
 )
 
 type calc struct {
-	equation  string
-	functions map[string]func()
+	equation string
 
 	output  *widget.Label
 	buttons map[string]*widget.Button
@@ -57,41 +56,29 @@ func (c *calc) evaluate() {
 func (c *calc) addButton(text string, action func()) *widget.Button {
 	button := widget.NewButton(text, action)
 	c.buttons[text] = button
-
 	return button
 }
 
 func (c *calc) digitButton(number int) *widget.Button {
 	str := strconv.Itoa(number)
-	action := func() {
+	return c.addButton(str, func() {
 		c.digit(number)
-	}
-	c.functions[str] = action
-
-	return c.addButton(str, action)
+	})
 }
 
 func (c *calc) charButton(char rune) *widget.Button {
-	action := func() {
+	return c.addButton(string(char), func() {
 		c.character(char)
-	}
-	c.functions[string(char)] = action
-
-	return c.addButton(string(char), action)
+	})
 }
 
 func (c *calc) onTypedRune(r rune) {
-	if r == '=' {
-		c.evaluate()
-		return
-	} else if r == 'c' {
-		c.clear()
-		return
+	if r == 'c' {
+		r = 'C' // The button is using a capital C.
 	}
 
-	action := c.functions[string(r)]
-	if action != nil {
-		action()
+	if button, ok := c.buttons[string(r)]; ok {
+		button.OnTapped()
 	}
 }
 
@@ -114,9 +101,7 @@ func (c *calc) loadUI(app fyne.App) {
 	c.window.SetContent(container.NewGridWithColumns(1,
 		c.output,
 		container.NewGridWithColumns(4,
-			c.addButton("C", func() {
-				c.clear()
-			}),
+			c.addButton("C", c.clear),
 			c.charButton('('),
 			c.charButton(')'),
 			c.charButton('/')),
@@ -150,7 +135,6 @@ func (c *calc) loadUI(app fyne.App) {
 
 func newCalculator() *calc {
 	return &calc{
-		functions: make(map[string]func()),
-		buttons:   make(map[string]*widget.Button),
+		buttons: make(map[string]*widget.Button, 19),
 	}
 }
