@@ -90,6 +90,21 @@ func (c *calc) onTypedKey(ev *fyne.KeyEvent) {
 	}
 }
 
+func (c *calc) onTypedShortcut(shortcut fyne.Shortcut) {
+	if pasted, ok := shortcut.(*fyne.ShortcutPaste); ok {
+		content := pasted.Clipboard.Content()
+		if _, err := strconv.ParseFloat(content, 64); err == nil {
+			c.display(c.equation + content)
+		}
+
+		return
+	}
+
+	if _, ok := shortcut.(*fyne.ShortcutCopy); ok {
+		fyne.CurrentApp().Driver().AllWindows()[0].Clipboard().SetContent(c.equation)
+	}
+}
+
 func (c *calc) loadUI(app fyne.App) {
 	c.output = &widget.Label{Alignment: fyne.TextAlignTrailing}
 	c.output.TextStyle.Monospace = true
@@ -129,6 +144,8 @@ func (c *calc) loadUI(app fyne.App) {
 
 	c.window.Canvas().SetOnTypedRune(c.onTypedRune)
 	c.window.Canvas().SetOnTypedKey(c.onTypedKey)
+	c.window.Canvas().AddShortcut(&fyne.ShortcutCopy{}, c.onTypedShortcut)
+	c.window.Canvas().AddShortcut(&fyne.ShortcutPaste{}, c.onTypedShortcut)
 	c.window.Resize(fyne.NewSize(200, 300))
 	c.window.Show()
 }
