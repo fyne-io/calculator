@@ -100,8 +100,8 @@ func (c *calc) onTypedShortcut(shortcut fyne.Shortcut) {
 		return
 	}
 
-	if _, ok := shortcut.(*fyne.ShortcutCopy); ok {
-		fyne.CurrentApp().Driver().AllWindows()[0].Clipboard().SetContent(c.equation)
+	if copied, ok := shortcut.(*fyne.ShortcutCopy); ok {
+		copied.Clipboard.SetContent(c.equation)
 	}
 }
 

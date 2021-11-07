@@ -156,12 +156,13 @@ func TestError(t *testing.T) {
 }
 
 func TestShortcuts(t *testing.T) {
+	app := test.NewApp()
 	calc := newCalculator()
-	calc.loadUI(test.NewApp())
-	clipboard := fyne.CurrentApp().Driver().AllWindows()[0].Clipboard()
+	calc.loadUI(app)
+	clipboard := app.Driver().AllWindows()[0].Clipboard()
 
 	test.TypeOnCanvas(calc.window.Canvas(), "720 + 80")
-	calc.onTypedShortcut(&fyne.ShortcutCopy{})
+	calc.onTypedShortcut(&fyne.ShortcutCopy{Clipboard: clipboard})
 	assert.Equal(t, clipboard.Content(), calc.output.Text)
 
 	test.TypeOnCanvas(calc.window.Canvas(), "+")
