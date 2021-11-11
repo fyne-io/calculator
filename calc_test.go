@@ -154,3 +154,24 @@ func TestError(t *testing.T) {
 	test.TypeOnCanvas(calc.window.Canvas(), "1//1=")
 	assert.Equal(t, "error", calc.output.Text)
 }
+
+func TestShortcuts(t *testing.T) {
+	app := test.NewApp()
+	calc := newCalculator()
+	calc.loadUI(app)
+	clipboard := app.Driver().AllWindows()[0].Clipboard()
+
+	test.TypeOnCanvas(calc.window.Canvas(), "720 + 80")
+	calc.onCopyShortcut(&fyne.ShortcutCopy{Clipboard: clipboard})
+	assert.Equal(t, clipboard.Content(), calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "+")
+	clipboard.SetContent("50")
+	calc.onPasteShortcut(&fyne.ShortcutPaste{Clipboard: clipboard})
+	test.TypeOnCanvas(calc.window.Canvas(), "=")
+	assert.Equal(t, "850", calc.output.Text)
+
+	clipboard.SetContent("not a valid number")
+	calc.onPasteShortcut(&fyne.ShortcutPaste{Clipboard: clipboard})
+	assert.Equal(t, "850", calc.output.Text)
+}
