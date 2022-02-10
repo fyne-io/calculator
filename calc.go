@@ -49,7 +49,8 @@ func (c *calc) evaluate() {
 
 	if err != nil {
 		log.Println("Error in calculation", err)
-		c.display("error")
+		c.display("No value")
+		c.output.Text = "0"
 	}
 }
 
