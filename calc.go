@@ -51,12 +51,14 @@ func (c *calc) evaluate() {
 	}
 
 	result, err := expression.Evaluate(nil)
-	value, ok := result.(float64)
 	if err != nil {
 		log.Println("Error in calculation", err)
 		c.display("error")
 		return
-	} else if !ok {
+	}
+
+	value, ok := result.(float64)
+	if !ok {
 		log.Println("Invalid input:", c.output.Text)
 		c.display("error")
 		return
