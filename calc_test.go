@@ -159,9 +159,7 @@ func TestError(t *testing.T) {
 	test.TypeOnCanvas(calc.window.Canvas(), "()9=")
 	assert.Equal(t, "error", calc.output.Text)
 
-	test.TypeOnCanvas(calc.window.Canvas(), "c")
-
-	test.TypeOnCanvas(calc.window.Canvas(), "error=")
+	test.TypeOnCanvas(calc.window.Canvas(), "=")
 	assert.Equal(t, "error", calc.output.Text)
 }
 
