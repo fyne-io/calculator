@@ -39,18 +39,30 @@ func (c *calc) clear() {
 }
 
 func (c *calc) evaluate() {
-	expression, err := govaluate.NewEvaluableExpression(c.output.Text)
-	if err == nil {
-		result, err := expression.Evaluate(nil)
-		if err == nil {
-			c.display(strconv.FormatFloat(result.(float64), 'f', -1, 64))
-		}
+	if c.output.Text == "error" {
+		return
 	}
 
+	expression, err := govaluate.NewEvaluableExpression(c.output.Text)
 	if err != nil {
 		log.Println("Error in calculation", err)
 		c.display("error")
+		return
 	}
+
+	result, err := expression.Evaluate(nil)
+	value, ok := result.(float64)
+	if err != nil {
+		log.Println("Error in calculation", err)
+		c.display("error")
+		return
+	} else if !ok {
+		log.Println("Invalid input:", c.output.Text)
+		c.display("error")
+		return
+	}
+
+	c.display(strconv.FormatFloat(value, 'f', -1, 64))
 }
 
 func (c *calc) addButton(text string, action func()) *widget.Button {
