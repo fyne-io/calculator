@@ -38,6 +38,17 @@ func (c *calc) clear() {
 	c.display("")
 }
 
+func (c *calc) backspace() {
+	if len(c.equation) == 0 {
+		return
+	} else if c.equation == "error" {
+		c.clear()
+		return
+	}
+
+	c.display(c.equation[:len(c.equation)-1])
+}
+
 func (c *calc) evaluate() {
 	expression, err := govaluate.NewEvaluableExpression(c.output.Text)
 	if err == nil {
@@ -85,8 +96,8 @@ func (c *calc) onTypedRune(r rune) {
 func (c *calc) onTypedKey(ev *fyne.KeyEvent) {
 	if ev.Name == fyne.KeyReturn || ev.Name == fyne.KeyEnter {
 		c.evaluate()
-	} else if ev.Name == fyne.KeyBackspace && len(c.equation) > 0 {
-		c.display(c.equation[:len(c.equation)-1])
+	} else if ev.Name == fyne.KeyBackspace {
+		c.backspace()
 	}
 }
 

@@ -142,6 +142,21 @@ func TestKeyboard_Buttons(t *testing.T) {
 	test.TypeOnCanvas(calc.window.Canvas(), "1+1")
 	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyEnter})
 	assert.Equal(t, "2", calc.output.Text)
+}
+
+func TestKeyboard_Backspace(t *testing.T) {
+	calc := newCalculator()
+	calc.loadUI(test.NewApp())
+
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyBackspace})
+	assert.Equal(t, "", calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "1/2")
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyBackspace})
+	assert.Equal(t, "1/", calc.output.Text)
+
+	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyEnter})
+	assert.Equal(t, "error", calc.output.Text)
 
 	calc.onTypedKey(&fyne.KeyEvent{Name: fyne.KeyBackspace})
 	assert.Equal(t, "", calc.output.Text)
