@@ -161,6 +161,9 @@ func TestError(t *testing.T) {
 
 	test.TypeOnCanvas(calc.window.Canvas(), "=")
 	assert.Equal(t, "error", calc.output.Text)
+
+	test.TypeOnCanvas(calc.window.Canvas(), "55=")
+	assert.Equal(t, "error", calc.output.Text)
 }
 
 func TestShortcuts(t *testing.T) {

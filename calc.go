@@ -5,6 +5,7 @@ package main
 import (
 	"log"
 	"strconv"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -39,7 +40,8 @@ func (c *calc) clear() {
 }
 
 func (c *calc) evaluate() {
-	if c.output.Text == "error" {
+	if strings.Contains(c.output.Text, "error") {
+		c.display("error")
 		return
 	}
 
