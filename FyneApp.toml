@@ -1,0 +1,5 @@
+[Details]
+  Icon = "Icon.png"
+  Name = "Calculator"
+  ID = "io.fyne.calculator"
+  Build = 10
