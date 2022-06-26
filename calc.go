@@ -167,10 +167,11 @@ func (c *calc) loadUI(app fyne.App) {
 			equals)),
 	)
 
-	c.window.Canvas().SetOnTypedRune(c.onTypedRune)
-	c.window.Canvas().SetOnTypedKey(c.onTypedKey)
-	c.window.Canvas().AddShortcut(&fyne.ShortcutCopy{}, c.onCopyShortcut)
-	c.window.Canvas().AddShortcut(&fyne.ShortcutPaste{}, c.onPasteShortcut)
+	canvas := c.window.Canvas()
+	canvas.SetOnTypedRune(c.onTypedRune)
+	canvas.SetOnTypedKey(c.onTypedKey)
+	canvas.AddShortcut(&fyne.ShortcutCopy{}, c.onCopyShortcut)
+	canvas.AddShortcut(&fyne.ShortcutPaste{}, c.onPasteShortcut)
 	c.window.Resize(fyne.NewSize(200, 300))
 	c.window.Show()
 }
