@@ -1,5 +1,6 @@
-//go:generate fyne bundle -o data.go Icon.png
 // Package main launches the calculator app
+//
+//go:generate fyne bundle -o data.go Icon.png
 package main
 
 import "fyne.io/fyne/v2/app"
