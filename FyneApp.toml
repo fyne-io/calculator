@@ -2,4 +2,5 @@
   Icon = "Icon.png"
   Name = "Calculator"
   ID = "io.fyne.calculator"
-  Build = 10
+  Version = "1.1.0"
+  Build = 11
