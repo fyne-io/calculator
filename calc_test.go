@@ -185,7 +185,7 @@ func TestShortcuts(t *testing.T) {
 	app := test.NewApp()
 	calc := newCalculator()
 	calc.loadUI(app)
-	clipboard := app.Driver().AllWindows()[0].Clipboard()
+	clipboard := app.Clipboard()
 
 	test.TypeOnCanvas(calc.window.Canvas(), "720 + 80")
 	calc.onCopyShortcut(&fyne.ShortcutCopy{Clipboard: clipboard})
