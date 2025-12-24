@@ -11,7 +11,7 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 
-	"github.com/Knetic/govaluate"
+	"github.com/casbin/govaluate"
 )
 
 type calc struct {
@@ -136,12 +136,14 @@ func (c *calc) loadUI(app fyne.App) {
 
 	equals := c.addButton("=", c.evaluate)
 	equals.Importance = widget.HighImportance
+	clrBtn := c.addButton("C", c.clear)
+	clrBtn.Importance = widget.WarningImportance
 
 	c.window = app.NewWindow("Calc")
 	c.window.SetContent(container.NewGridWithColumns(1,
 		c.output,
 		container.NewGridWithColumns(4,
-			c.addButton("C", c.clear),
+			clrBtn,
 			c.charButton('('),
 			c.charButton(')'),
 			c.charButton('/')),
