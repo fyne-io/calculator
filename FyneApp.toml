@@ -1,6 +1,9 @@
 [Details]
-  Icon = "Icon.png"
-  Name = "Calculator"
-  ID = "io.fyne.calculator"
-  Version = "1.1.0"
-  Build = 11
+Icon = "Icon.png"
+Name = "Calculator"
+ID = "io.fyne.calculator"
+Version = "1.1.0"
+Build = 12
+
+[LinuxAndBSD]
+Categories = ["Utility"]
