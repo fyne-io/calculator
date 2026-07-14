@@ -7,3 +7,6 @@ Build = 12
 
 [LinuxAndBSD]
 Categories = ["Utility"]
+
+[Migrations]
+fyneDo = true
