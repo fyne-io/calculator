@@ -51,6 +51,7 @@ jobs:
         run: |
           gofumpt -d -e .
           test -z "$(goimports -e -d . | tee /dev/stderr)"
+        if: ${{ runner.os == 'Linux' }}
 
       - name: Check license of dependencies
         run: lian -d --allowed="Apache-2.0, BSD-2-Clause, BSD-3-Clause, MIT, ISC"
