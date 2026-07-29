@@ -110,9 +110,10 @@ func (c *calc) onTypedRune(r rune) {
 }
 
 func (c *calc) onTypedKey(ev *fyne.KeyEvent) {
-	if ev.Name == fyne.KeyReturn || ev.Name == fyne.KeyEnter {
+	switch ev.Name {
+	case fyne.KeyReturn, fyne.KeyEnter:
 		c.evaluate()
-	} else if ev.Name == fyne.KeyBackspace {
+	case fyne.KeyBackspace:
 		c.backspace()
 	}
 }
